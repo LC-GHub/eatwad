@@ -4,14 +4,18 @@ import os
 from telegram import Bot, Update
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import time
-import psycopg2
+from pymongo import MongoClient
+from pprint import pprint
 #HELLO 
 ###################
 API_KEY = '5376979755:AAHW7-u6ceSTFUXSDAKFzutKv_Nlhm2GaFo'
 bot = telebot.TeleBot(API_KEY)
-db_url = 'postgres://trfbygdjlzgylg:ba4770e7951333f228b1a3d5010c9b2a05b8068e656ab010ce9d60b0bb9755aa@ec2-3-229-252-6.compute-1.amazonaws.com:5432/d82285oehroe9v'
-db_url_get = os.environ.get(db_url)
-con = psycopg2.connect(db_url_get)
+###########DataBase#################
+
+client = MongoClient('mongodb+srv://lionel1712:<password>@cluster0.fafyz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", server_api=ServerApi('1')')
+db = client.test
+serverStatusResult=db.command("serverStatus")
+pprint(serverStatusResult)
 ####################################
 def kb_markup():
     markup = InlineKeyboardMarkup()
@@ -39,12 +43,8 @@ def callback_query(call):
         recommendation()
        
 def recommendation():
-    cur = con.cursor
+    pass
 
-
-
-def opendb():
-    db = psycopg2.connect(database = "postgres", user = "")
 
 
 @bot.message_handler(commands = ['help'])
